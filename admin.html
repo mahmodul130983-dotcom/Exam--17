@@ -329,7 +329,7 @@
     <div class="admin-header">
       <div class="title-area">
         <h1>Admin Control Panel</h1>
-        <p>17th Weekly Exam Results Dashboard</p>
+        <p>17th Weekly Exam Results & Student Dreams Dashboard</p>
       </div>
       <button class="btn-action btn-export" onclick="exportToCSV()">
         <i class="fa-solid fa-file-excel"></i> Export CSV
@@ -384,7 +384,7 @@
             <tr>
               <th>#</th>
               <th>Student Name</th>
-              <th>Score (/85)</th>
+              <th>Score (/80)</th>
               <th>Right</th>
               <th>Wrong</th>
               <th>Skipped</th>
@@ -414,8 +414,11 @@
         <button class="btn-action" style="padding: 4px 10px;" onclick="closeModal()">✕</button>
       </div>
 
-      <div id="modal-dreams-container" style="background: rgba(236, 72, 153, 0.1); border: 1px dashed rgba(236, 72, 153, 0.4); padding: 12px 16px; border-radius: 12px; margin-bottom: 16px; font-size: 14px; display: none;">
-        <!-- Dreams injected dynamically -->
+      <!-- Student Dreams Box Display -->
+      <div id="modal-dreams-container" style="background: rgba(236, 72, 153, 0.1); border: 1px dashed rgba(236, 72, 153, 0.4); padding: 14px 16px; border-radius: 12px; margin-bottom: 20px; font-size: 14px; display: none;">
+        <div style="color: #f472b6; font-weight: 700; margin-bottom: 8px;"><i class="fa-solid fa-heart"></i> Student's Dream & Goal:</div>
+        <div style="margin-bottom: 6px;"><strong>🎓 Dream University:</strong> <span id="modal-dream-uni" style="color: #f8fafc;"></span></div>
+        <div><strong>✨ Future Goal:</strong> <span id="modal-dream-future" style="color: #f8fafc;"></span></div>
       </div>
       
       <h4 style="color: var(--text-muted); font-size: 14px; margin-bottom: 12px;">Wrong Questions Breakdown:</h4>
@@ -531,16 +534,13 @@
       const item = allResults.find(r => r.id === docId);
       if (!item) return;
 
-      document.getElementById('modal-student-name').innerText = `${item.studentName}'s Review & Dreams`;
+      document.getElementById('modal-student-name').innerText = `${item.studentName}'s Full Review`;
       
       const dreamContainer = document.getElementById('modal-dreams-container');
       if (item.dreamUni || item.dreamFuture) {
         dreamContainer.style.display = 'block';
-        dreamContainer.innerHTML = `
-          <div style="color: #f472b6; font-weight: 600; margin-bottom: 4px;"><i class="fa-solid fa-star"></i> Student Dreams:</div>
-          <div><strong>Dream Uni:</strong> ${escapeHtml(item.dreamUni || 'Not provided')}</div>
-          <div><strong>Future Goal:</strong> ${escapeHtml(item.dreamFuture || 'Not provided')}</div>
-        `;
+        document.getElementById('modal-dream-uni').innerText = item.dreamUni || 'Not provided';
+        document.getElementById('modal-dream-future').innerText = item.dreamFuture || 'Not provided';
       } else {
         dreamContainer.style.display = 'none';
       }
@@ -584,10 +584,10 @@
         return;
       }
 
-      let csv = 'Index,Student Name,Total Score,Right Answers,Wrong Answers,Skipped,Accuracy %,Submitted At\n';
+      let csv = 'Index,Student Name,Dream University,Future Goal,Total Score,Right Answers,Wrong Answers,Skipped,Accuracy %,Submitted At\n';
 
       allResults.forEach((item, index) => {
-        csv += `"${index + 1}","${item.studentName}","${item.totalScore}","${item.correctAnswers}","${item.wrongAnswers}","${item.skippedQuestions}","${item.accuracyPercentage}%","${item.submittedAt}"\n`;
+        csv += `"${index + 1}","${item.studentName || ''}","${item.dreamUni || ''}","${item.dreamFuture || ''}","${item.totalScore}","${item.correctAnswers}","${item.wrongAnswers}","${item.skippedQuestions}","${item.accuracyPercentage}%","${item.submittedAt}"\n`;
       });
 
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
