@@ -115,8 +115,11 @@
       transition: all 0.3s ease;
     }
 
-    .motivation-screen {
-      text-align: center;
+    /* Screens Control Classes */
+    .screen-view {
+      display: none;
+    }
+    .screen-view.active {
       display: block;
       animation: fadeIn 0.4s ease-out;
     }
@@ -191,12 +194,6 @@
 
     .dream-box-item input:focus {
       border-color: #ec4899;
-    }
-
-    .user-info-screen {
-      text-align: center;
-      display: none;
-      animation: fadeIn 0.4s ease-out;
     }
 
     .input-wrapper {
@@ -425,12 +422,6 @@
       transform: scale(1.03);
     }
 
-    .result-screen {
-      text-align: center;
-      display: none;
-      animation: fadeIn 0.4s ease-out;
-    }
-
     .score-circle {
       width: 170px;
       height: 170px;
@@ -565,7 +556,7 @@
   <div class="quiz-card">
     
     <!-- 1. Special Motivation & Dream Page -->
-    <div id="motivation-view" class="motivation-screen">
+    <div id="motivation-view" class="screen-view active">
       <div class="badge-tag">
         <i class="fa-solid fa-heart"></i> Hey, My Favourite Person! ❤️ <i class="fa-solid fa-heart"></i>
       </div>
@@ -575,7 +566,6 @@
        Hey, my girl! ❤️ I know you were expecting an A+, and I understand how disappointing it feels when things don't go the way you hoped. You have every right to feel sad, so don't force yourself to be okay. But please don't let this one result affect how you see yourself. HSC is an important part of life, but it isn't the whole of it. Your DU dream is still ahead of you, and I genuinely hope you get the chance to make it come true. Whatever happens, remember that one result doesn't define your ability or your future. I just want to see you happy, confident and believing in yourself again. I'm always rooting for you, Pakhi. ❤️
       </p>
 
-      <!-- Dream Interactive Boxes -->
       <div class="dream-grid">
         <div class="dream-box-item">
           <label><i class="fa-solid fa-star" style="color: #f472b6;"></i> WRITE YOUR DREAM UNIVERSITY AND DEPARTMENT?</label>
@@ -583,7 +573,7 @@
         </div>
         <div class="dream-box-item">
           <label><i class="fa-solid fa-bullseye" style="color: #818cf8;"></i> Future e nijeke kothay dekhte chao?</label>
-          <input type="text" id="dream-future" placeholder="e.g. A successful, independent and confident woman who makes her dreams come true..." autocomplete="off">
+          <input type="text" id="dream-future" placeholder="e.g. A successful, independent and confident woman..." autocomplete="off">
         </div>
       </div>
 
@@ -593,7 +583,7 @@
     </div>
 
     <!-- 2. Name Input / Welcome View -->
-    <div id="user-info-view" class="user-info-screen">
+    <div id="user-info-view" class="screen-view">
       <div class="badge-tag">
         <i class="fa-solid fa-graduation-cap"></i> DU B UNIT MODEL TEST
       </div>
@@ -611,7 +601,7 @@
     </div>
 
     <!-- 3. Interactive Exam Screen -->
-    <div id="quiz-view" style="display: none;">
+    <div id="quiz-view" class="screen-view">
       <div class="top-bar">
         <div class="student-badge">
           <i class="fa-solid fa-user-circle" style="color: #818cf8;"></i>
@@ -647,7 +637,7 @@
     </div>
 
     <!-- 4. Dynamic Results Screen -->
-    <div class="result-screen" id="result-view">
+    <div id="result-view" class="screen-view">
       <div class="badge-tag" id="performance-badge">
         <i class="fa-solid fa-trophy"></i> Results are ready
       </div>
@@ -699,7 +689,6 @@
   </div>
 
   <script>
-    // Firebase Configuration
     const firebaseConfig = {
       apiKey: "AIzaSyCTgSqtcDRtvfbIECDFEv_2jAEgModArXc",
       authDomain: "gk-exam-2.firebaseapp.com",
@@ -786,7 +775,7 @@
       { question: "বাংলাদেশ থেকে হালনাগাদ সংবাদ অনুযায়ী এখন তথ্য ও যোগাযোগ প্রযুক্তি মন্ত্রণালয়ের মন্ত্রী কে?", options: ["জুনাইদ আহমেদ পলক", "অধ্যাপক মুহাম্মদ ইউনূস", "নাহিদ ইসলাম", "আসিফ মাহমুদ সজীব ভূঁইয়া"], correct: 1 },
       { question: "বিশ্বব্যাংকের রিপোর্ট অনুযায়ী চলতি অর্থবছরে বাংলাদেশের জিডিপি প্রবৃদ্ধির হার কত হবে বলে অনুমান করা হচ্ছে?", options: ["৫.২%", "৫.৭%", "৬.১%", "৬.৫%"], correct: 1 },
       { question: "চলতি বছরে (২০২৬) 'নোবেল শান্তি পুরস্কার' বা শান্তিতে নোবেল পুরস্কার কে লাভ করেছেন?", options: ["নার্গিস মোহাম্মাদি", "নিহন হিদানকিও", "মারিয়া রেসা", "আলেক্সেই নাভালনি"], correct: 1 },
-      { question: "ফিফা বিশ্বকাপ ২০২৬ কয়টি দেশে যৌথভাবে অনুষ্ঠিত হওয়ার কথা রয়েছে?", options: ["২টি", "۳টি", "৪টি", "৫টি"], correct: 1 },
+      { question: "ফিফা বিশ্বকাপ ২০২৬ কয়টি দেশে যৌথভাবে অনুষ্ঠিত হওয়ার কথা রয়েছে?", options: ["২টি", "৩টি", "৪টি", "৫টি"], correct: 1 },
       { question: "হালনাগাদ তথ্যের ভিত্তিতে বাংলাদেশে এখন মাথাপিছু আয় কত?", options: ["২,৬৫০ মার্কিন ডলার", "২,৭৮৪ মার্কিন ডলার", "২,৮২৪ মার্কিন ডলার", "৩,১০০ মার্কিন ডলার"], correct: 2 },
       { question: "এশিয়া কাপ ২০২৬ ক্রিকেট টুর্নামেন্ট কোন দেশে অনুষ্ঠিত হওয়ার নির্ধারণ করা হয়েছে?", options: ["বাংলাদেশ", "ভারত", "পাকিস্তান", "শ্রীলঙ্কা"], correct: 1 },
       { question: "'COP31' পরিবেশ সম্মেলন কোন দেশে অনুষ্ঠিত হওয়ার নির্ধারণ করা হয়েছে?", options: ["অস্ট্রেলিয়া", "ব্রাজিল", "আজারবাইজান", "সংযুক্ত আরব আমিরাত"], correct: 0 },
@@ -803,13 +792,22 @@
     let questionStates = new Array(questionsDatabase.length).fill(null);
     let userSelections = new Array(questionsDatabase.length).fill(null);
 
-    function goToNameScreen() {
-      // Grab dream inputs values before moving forward
-      dreamUniValue = document.getElementById('dream-uni').value.trim();
-      dreamFutureValue = document.getElementById('dream-future').value.trim();
+    // Helper function to switch screens cleanly
+    function switchScreen(screenId) {
+      document.querySelectorAll('.screen-view').forEach(screen => {
+        screen.classList.remove('active');
+      });
+      document.getElementById(screenId).classList.add('active');
+    }
 
-      document.getElementById('motivation-view').style.display = 'none';
-      document.getElementById('user-info-view').style.display = 'block';
+    function goToNameScreen() {
+      const dreamUniInput = document.getElementById('dream-uni');
+      const dreamFutureInput = document.getElementById('dream-future');
+      
+      if (dreamUniInput) dreamUniValue = dreamUniInput.value.trim();
+      if (dreamFutureInput) dreamFutureValue = dreamFutureInput.value.trim();
+
+      switchScreen('user-info-view');
     }
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -832,9 +830,8 @@
       }
       userName = inputVal;
       document.getElementById('display-name').innerText = userName;
-      document.getElementById('user-info-view').style.display = 'none';
-      document.getElementById('quiz-view').style.display = 'block';
-
+      
+      switchScreen('quiz-view');
       loadQuestion(0);
     }
 
@@ -903,4 +900,115 @@
       if (currentIndex < questionsDatabase.length - 1) {
         loadQuestion(currentIndex + 1);
       }
+    }
+
+    function navigateQuestion(direction) {
+      const newIndex = currentIndex + direction;
+      if (newIndex >= 0 && newIndex < questionsDatabase.length) {
+        loadQuestion(newIndex);
+      }
+    }
+
+    function openSubmitModal() {
+      let answeredCount = questionStates.filter(s => s === 'answered').length;
+      let skippedCount = questionStates.filter(s => s === 'skipped').length;
+      let unvisitedCount = questionsDatabase.length - (answeredCount + skippedCount);
+
+      document.getElementById('modal-summary-text').innerText = 
+        `Given answer: ${answeredCount}টি | skip: ${skippedCount}টি | Remaining: ${unvisitedCount}টি`;
+
+      document.getElementById('submit-modal').classList.add('active');
+    }
+
+    function closeSubmitModal() {
+      document.getElementById('submit-modal').classList.remove('active');
+    }
+
+    function finalizeExam() {
+      closeSubmitModal();
+      switchScreen('result-view');
+
+      let correct = 0;
+      let wrong = 0;
+      let skipped = 0;
+      let wrongQuestionsList = [];
+
+      const reviewList = document.getElementById('review-list');
+      reviewList.innerHTML = '';
+
+      questionsDatabase.forEach((q, idx) => {
+        const selected = userSelections[idx];
+        const isAnswered = selected !== null;
+        const isCorrect = isAnswered && selected === q.correct;
+        const isWrong = isAnswered && selected !== q.correct;
+
+        if (isCorrect) {
+          correct++;
+        } else if (isWrong) {
+          wrong++;
+          wrongQuestionsList.push({
+            questionNo: idx + 1,
+            questionText: q.question,
+            givenAnswer: q.options[selected],
+            correctAnswer: q.options[q.correct]
+          });
+        } else {
+          skipped++;
+        }
+
+        const item = document.createElement('div');
+        let statusClass = isCorrect ? 'is-correct' : (isWrong ? 'is-wrong' : 'is-skipped');
+        item.className = `review-item ${statusClass}`;
+
+        let selectedText = isAnswered ? q.options[selected] : 'উত্তর দেওয়া হয়নি (স্কিপড)';
+        let correctText = q.options[q.correct];
+
+        item.innerHTML = `
+          <div class="review-q">${q.question}</div>
+          <div class="review-ans">
+            <span>your answer: <strong style="color: ${isCorrect ? 'var(--correct-text)' : (isWrong ? 'var(--wrong-text)' : 'var(--skipped-text)')}">${selectedText}</strong></span>
+            ${!isCorrect ? `<span>Right answer: <strong style="color: var(--correct-text)">${correctText}</strong></span>` : ''}
+          </div>
+        `;
+        reviewList.appendChild(item);
+      });
+
+      let totalScore = (correct * 1.0) - (wrong * 0.25);
+      if (totalScore < 0) totalScore = 0;
+
+      let answeredTotal = correct + wrong;
+      let accuracy = answeredTotal > 0 ? ((correct / answeredTotal) * 100).toFixed(1) : 0;
+
+      document.getElementById('final-score').innerText = totalScore.toFixed(2);
+      document.getElementById('correct-count').innerText = correct;
+      document.getElementById('wrong-count').innerText = wrong;
+      document.getElementById('skipped-count').innerText = skipped;
+      document.getElementById('accuracy-rate').innerText = `${accuracy}%`;
+
+      const perfBadge = document.getElementById('performance-badge');
+      if (totalScore >= 60) {
+        perfBadge.innerHTML = `<i class="fa-solid fa-trophy"></i> চমৎকার প্রস্তুতি! (Outstanding)`;
+      } else if (totalScore >= 40) {
+        perfBadge.innerHTML = `<i class="fa-solid fa-medal"></i> ভালো ফলাফল (Good Job)`;
+      } else {
+        perfBadge.innerHTML = `<i class="fa-solid fa-book-open"></i> আরও অনুশীলন প্রয়োজন`;
+      }
+
+      db.collection("quiz_results 17").add({
+        studentName: userName,
+        dreamUni: dreamUniValue,
+        dreamFuture: dreamFutureValue,
+        totalScore: totalScore.toFixed(2),
+        correctAnswers: correct,
+        wrongAnswers: wrong,
+        skippedQuestions: skipped,
+        accuracyPercentage: accuracy,
+        wrongQuestionsBreakdown: wrongQuestionsList,
+        submittedAt: new Date().toISOString()
+      })
+      .then(() => console.log("Result saved to Firestore successfully!"))
+      .catch((err) => console.error("Firestore Save Error: ", err));
+    }
+  </script>
+</body>
 </html>
